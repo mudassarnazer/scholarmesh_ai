@@ -31,7 +31,7 @@ const nodes: { id: string; label: string; kind: Kind; x: number; y: number; deta
   { id: "a2", label: "N. Shinn", kind: "Author", x: 560, y: 440, detail: "Lead author of Reflexion." },
   { id: "m1", label: "Retrieval (RAG)", kind: "Method", x: 220, y: 350, detail: "Retrieving external documents to ground generation." },
 ];
-const edges = [["p1", "c1"], ["p2", "c1"], ["p2", "c2"], ["a1", "p1"], ["a2", "p2"], ["p1", "m1"], ["m1", "p2"]];
+const edges: [string, string][] = [["p1", "c1"], ["p2", "c1"], ["p2", "c2"], ["a1", "p1"], ["a2", "p2"], ["p1", "m1"], ["m1", "p2"]];
 
 function GraphPage() {
   const [sel, setSel] = useState<string | null>("c1");
