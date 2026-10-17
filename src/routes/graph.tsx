@@ -48,8 +48,12 @@ function GraphPage() {
             {edges.map(([a, b, rel]) => {
               const active = sel === a || sel === b;
               return (
-                <line key={a + b} x1={byId(a).x} y1={byId(a).y} x2={byId(b).x} y2={byId(b).y}
-                  className={active ? "stroke-violet" : "stroke-input"} strokeWidth={active ? 1.6 : 1} />
+                <g key={a + b}>
+                  <line x1={byId(a).x} y1={byId(a).y} x2={byId(b).x} y2={byId(b).y}
+                    className={active ? "stroke-violet" : "stroke-input"} strokeWidth={active ? 1.6 : 1} />
+                  <text x={(byId(a).x + byId(b).x) / 2} y={(byId(a).y + byId(b).y) / 2 - 5} textAnchor="middle"
+                    className={`text-[10px] italic ${active ? "fill-violet" : "fill-muted-foreground"}`}>{rel}</text>
+                </g>
               );
             })}
             {nodes.map((n) => (
