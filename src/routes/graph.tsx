@@ -1,10 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/AppShell";
 
 export const Route = createFileRoute("/graph")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Knowledge Graph — ScholarMesh AI" },
       { name: "description", content: "Visualize connections between papers, authors, concepts, and methods." },
       { property: "og:title", content: "Knowledge Graph — ScholarMesh AI" },
@@ -35,23 +38,26 @@ const edges: [string, string, string][] = [["p1", "c1", "studies"], ["p2", "c1",
 
 function GraphPage() {
   const [sel, setSel] = useState<string | null>("c1");
-  const byId = (id: string) => nodes.find((n) => n.id === id)!;
+  const byId = (id: string) => nodes.find((n) => n.id === id);
   const s = sel ? byId(sel) : null;
-  const linked = s ? edges.filter((e) => e.includes(s.id)).map((e) => byId(e[0] === s.id ? e[1] : e[0])) : [];
+  const linked = s ? edges.filter((e) => e.includes(s.id)).map((e) => byId(e[0] === s.id ? e[1] : e[0])).filter((node) => node !== undefined) : [];
 
   return (
     <div className="mx-auto max-w-6xl">
       <PageHeader title="Knowledge Graph" demo description="See how papers, authors, concepts, and methods connect. Select a node to explore its relationships." />
       <div className="grid gap-5 lg:grid-cols-[1fr_300px]">
-        <div className="rounded-2xl border bg-card p-3">
+        <div className="rounded-lg border bg-card p-3">
           <svg viewBox="0 0 820 520" className="h-auto w-full">
             {edges.map(([a, b, rel]) => {
+              const from = byId(a);
+              const to = byId(b);
+              if (!from || !to) return null;
               const active = sel === a || sel === b;
               return (
                 <g key={a + b}>
-                  <line x1={byId(a).x} y1={byId(a).y} x2={byId(b).x} y2={byId(b).y}
+                  <line x1={from.x} y1={from.y} x2={to.x} y2={to.y}
                     className={active ? "stroke-violet" : "stroke-input"} strokeWidth={active ? 1.6 : 1} />
-                  <text x={(byId(a).x + byId(b).x) / 2} y={(byId(a).y + byId(b).y) / 2 - 5} textAnchor="middle"
+                  <text x={(from.x + to.x) / 2} y={(from.y + to.y) / 2 - 5} textAnchor="middle"
                     className={`text-[10px] italic ${active ? "fill-violet" : "fill-muted-foreground"}`}>{rel}</text>
                 </g>
               );
@@ -75,7 +81,7 @@ function GraphPage() {
             ))}
           </div>
         </div>
-        <aside className="bg-welcome rounded-2xl border p-6">
+        <aside className="border-t pt-6 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-2">
           {s ? (
             <>
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{s.kind}</p>
@@ -85,7 +91,7 @@ function GraphPage() {
               <ul className="mt-2 space-y-1.5">
                 {linked.map((l) => (
                   <li key={l.id}>
-                    <button onClick={() => setSel(l.id)} className="text-sm text-primary hover:underline">{l.label}</button>
+                    <Button variant="ghost" onClick={() => setSel(l.id)} className="text-sm text-primary hover:underline">{l.label}</Button>
                   </li>
                 ))}
               </ul>

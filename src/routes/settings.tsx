@@ -5,6 +5,8 @@ import { Logo, PageHeader } from "@/components/AppShell";
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Settings — ScholarMesh AI" },
       { name: "description", content: "Appearance and research preferences for ScholarMesh AI." },
       { property: "og:title", content: "Settings — ScholarMesh AI" },
@@ -16,7 +18,7 @@ export const Route = createFileRoute("/settings")({
 
 function Card({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="rounded-2xl border bg-card p-6">
+    <section className="border-b pb-6">
       <h3 className="font-serif text-lg">{title}</h3>
       <div className="mt-4 space-y-3 text-sm">{children}</div>
     </section>

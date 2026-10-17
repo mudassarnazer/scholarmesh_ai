@@ -6,6 +6,8 @@ import { PageHeader, Tag } from "@/components/AppShell";
 export const Route = createFileRoute("/library")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Research Library — ScholarMesh AI" },
       { name: "description", content: "Browse and filter your collection of research papers." },
       { property: "og:title", content: "Research Library — ScholarMesh AI" },
@@ -56,9 +58,9 @@ function Library() {
           {years.map((y) => <option key={y}>{y}</option>)}
         </select>
       </div>
-      <ul className="space-y-3">
+      <ul className="grid gap-4 xl:grid-cols-2">
         {list.map((p) => (
-          <li key={p.title} className="rounded-xl border bg-card p-5 transition hover:border-violet/40 hover:shadow-soft">
+          <li key={p.title} className="rounded-lg border bg-card p-5 transition hover:border-violet/40 hover:shadow-soft">
             <h3 className="font-serif text-lg leading-snug text-foreground">{p.title}</h3>
             <p className="mt-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground"><span className="text-primary">{p.author}</span> · {p.year}</p>
             <p className="mt-3 text-sm leading-relaxed">{p.summary}</p>
@@ -69,7 +71,7 @@ function Library() {
           </li>
         ))}
         {list.length === 0 && (
-          <li className="bg-welcome rounded-xl border p-10 text-center text-sm text-muted-foreground">No papers match your filters.</li>
+          <li className="bg-welcome rounded-lg border p-10 text-center text-sm text-muted-foreground">No papers match your filters.</li>
         )}
       </ul>
     </div>
