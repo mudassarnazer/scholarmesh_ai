@@ -35,9 +35,9 @@ const edges: [string, string][] = [["p1", "c1"], ["p2", "c1"], ["p2", "c2"], ["a
 
 function GraphPage() {
   const [sel, setSel] = useState<string | null>("c1");
-  const byId = Object.fromEntries(nodes.map((n) => [n.id, n]));
-  const s = sel ? byId[sel] : null;
-  const linked = s ? edges.filter((e) => e.includes(s.id)).map((e) => byId[e[0] === s.id ? e[1] : e[0]]) : [];
+  const byId = (id: string) => nodes.find((n) => n.id === id)!;
+  const s = sel ? byId(sel) : null;
+  const linked = s ? edges.filter((e) => e.includes(s.id)).map((e) => byId(e[0] === s.id ? e[1] : e[0])) : [];
 
   return (
     <div className="mx-auto max-w-6xl">
@@ -48,7 +48,7 @@ function GraphPage() {
             {edges.map(([a, b]) => {
               const active = sel === a || sel === b;
               return (
-                <line key={a + b} x1={byId[a].x} y1={byId[a].y} x2={byId[b].x} y2={byId[b].y}
+                <line key={a + b} x1={byId(a).x} y1={byId(a).y} x2={byId(b).x} y2={byId(b).y}
                   className={active ? "stroke-primary" : "stroke-border"} strokeWidth={active ? 1.8 : 1.2} />
               );
             })}
