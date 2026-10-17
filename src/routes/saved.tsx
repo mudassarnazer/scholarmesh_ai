@@ -34,7 +34,7 @@ function Saved() {
           <Logo className="mx-auto h-12 w-12" />
           <h3 className="mt-5 font-serif text-xl">Nothing saved yet</h3>
           <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">Bookmark questions, concepts, and connections as you research — they'll gather here.</p>
-          <Link to="/" className="mt-5 inline-block rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">Start researching</Link>
+          <Link to="/" className="mt-5 inline-block rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">Start researching</Link>
         </div>
       ) : (
         <div className="space-y-8">
@@ -47,7 +47,7 @@ function Saved() {
                 <ul className="space-y-2">
                   {gi.map((i) => (
                     <li key={i.id} className="group flex items-center gap-3 rounded-xl border bg-card px-4 py-3">
-                      <i.icon className="h-4 w-4 shrink-0 text-sage" />
+                      <i.icon className="h-4 w-4 shrink-0 text-primary" />
                       <span className="flex-1 text-sm">{i.text}</span>
                       <button onClick={() => setItems((s) => s.filter((x) => x.id !== i.id))} aria-label="Remove"
                         className="rounded p-1 text-muted-foreground opacity-60 hover:bg-muted hover:text-foreground group-hover:opacity-100">

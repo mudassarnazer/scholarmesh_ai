@@ -17,9 +17,9 @@ export const Route = createFileRoute("/graph")({
 type Kind = "Paper" | "Concept" | "Author" | "Method";
 const kindStyle: Record<Kind, string> = {
   Paper: "fill-primary",
-  Concept: "fill-sage",
+  Concept: "fill-violet",
   Author: "fill-card stroke-primary",
-  Method: "fill-card stroke-sage",
+  Method: "fill-card stroke-violet",
 };
 
 const nodes: { id: string; label: string; kind: Kind; x: number; y: number; detail: string }[] = [
@@ -31,7 +31,7 @@ const nodes: { id: string; label: string; kind: Kind; x: number; y: number; deta
   { id: "a2", label: "N. Shinn", kind: "Author", x: 560, y: 440, detail: "Lead author of Reflexion." },
   { id: "m1", label: "Retrieval (RAG)", kind: "Method", x: 220, y: 350, detail: "Retrieving external documents to ground generation." },
 ];
-const edges: [string, string][] = [["p1", "c1"], ["p2", "c1"], ["p2", "c2"], ["a1", "p1"], ["a2", "p2"], ["p1", "m1"], ["m1", "p2"]];
+const edges: [string, string, string][] = [["p1", "c1", "studies"], ["p2", "c1", "extends"], ["p2", "c2", "introduces"], ["a1", "p1", "authored"], ["a2", "p2", "authored"], ["p1", "m1", "uses"], ["m1", "p2", "informs"]];
 
 function GraphPage() {
   const [sel, setSel] = useState<string | null>("c1");
@@ -45,11 +45,11 @@ function GraphPage() {
       <div className="grid gap-5 lg:grid-cols-[1fr_300px]">
         <div className="rounded-2xl border bg-card p-3">
           <svg viewBox="0 0 820 520" className="h-auto w-full">
-            {edges.map(([a, b]) => {
+            {edges.map(([a, b, rel]) => {
               const active = sel === a || sel === b;
               return (
                 <line key={a + b} x1={byId(a).x} y1={byId(a).y} x2={byId(b).x} y2={byId(b).y}
-                  className={active ? "stroke-primary" : "stroke-border"} strokeWidth={active ? 1.8 : 1.2} />
+                  className={active ? "stroke-violet" : "stroke-input"} strokeWidth={active ? 1.6 : 1} />
               );
             })}
             {nodes.map((n) => (
@@ -57,6 +57,7 @@ function GraphPage() {
                 onKeyDown={(e) => e.key === "Enter" && setSel(n.id)} role="button" aria-label={n.label}>
                 <circle cx={n.x} cy={n.y} r={sel === n.id ? 15 : 11} strokeWidth={2.5}
                   className={`${kindStyle[n.kind]} transition-all`} />
+                {sel === n.id && <circle cx={n.x} cy={n.y} r={21} fill="none" strokeWidth={2} className="stroke-sage" />}
                 <text x={n.x} y={n.y + 30} textAnchor="middle" className="fill-foreground text-[13px] font-medium">{n.label}</text>
               </g>
             ))}
@@ -70,7 +71,7 @@ function GraphPage() {
             ))}
           </div>
         </div>
-        <aside className="bg-welcome rounded-2xl border p-5">
+        <aside className="bg-welcome rounded-2xl border p-6">
           {s ? (
             <>
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{s.kind}</p>

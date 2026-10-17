@@ -58,9 +58,9 @@ function Library() {
       </div>
       <ul className="space-y-3">
         {list.map((p) => (
-          <li key={p.title} className="rounded-xl border bg-card p-5 transition hover:border-primary/30 hover:shadow-soft">
-            <h3 className="font-serif text-lg leading-snug">{p.title}</h3>
-            <p className="mt-1 text-sm text-muted-foreground">{p.author} · {p.year}</p>
+          <li key={p.title} className="rounded-xl border bg-card p-5 transition hover:border-violet/40 hover:shadow-soft">
+            <h3 className="font-serif text-lg leading-snug text-foreground">{p.title}</h3>
+            <p className="mt-1.5 text-xs font-medium uppercase tracking-wider text-muted-foreground"><span className="text-primary">{p.author}</span> · {p.year}</p>
             <p className="mt-3 text-sm leading-relaxed">{p.summary}</p>
             <div className="mt-3 flex flex-wrap gap-1.5">
               <Tag>{p.topic}</Tag>

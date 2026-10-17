@@ -40,8 +40,9 @@ function ResearchChat() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <section className="pt-4 text-center md:pt-10">
+    <div className="relative isolate mx-auto max-w-3xl">
+      <section className="relative pt-4 text-center md:pt-10">
+        <div aria-hidden className="bg-glow pointer-events-none absolute -inset-x-16 -inset-y-10 -z-10 blur-2xl" />
         <span className="inline-flex items-center gap-1.5 rounded-full bg-sage-soft px-3 py-1 text-xs font-medium text-secondary-foreground">
           <Sparkles className="h-3.5 w-3.5" /> Connect knowledge. Discover what matters.
         </span>
@@ -54,7 +55,7 @@ function ResearchChat() {
       </section>
 
       <form
-        className="gradient-border mt-10 rounded-2xl p-3"
+        className="gradient-border mt-10 rounded-2xl p-4 transition-shadow"
         onSubmit={(e) => {
           e.preventDefault();
           submit();
@@ -86,7 +87,7 @@ function ResearchChat() {
           </button>
           <button
             type="submit"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             Ask Research <ArrowRight className="h-4 w-4" />
           </button>
@@ -94,8 +95,8 @@ function ResearchChat() {
       </form>
 
       {submitted && (
-        <div className="bg-welcome mt-4 flex gap-3 rounded-xl border border-sage/40 p-4 text-sm" role="status">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-sage" />
+        <div className="bg-welcome mt-4 flex gap-3 rounded-xl border p-4 text-sm" role="status">
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-violet" />
           <div>
             <p className="font-medium">Your question has been noted: “{submitted}”</p>
             <p className="mt-1 text-muted-foreground">
@@ -113,7 +114,7 @@ function ResearchChat() {
               setQ(s);
               ref.current?.focus();
             }}
-            className="rounded-xl border bg-card p-4 text-left text-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="rounded-xl border bg-card p-4 text-left text-sm transition hover:border-violet/40 hover:bg-tint hover:shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {s}
           </button>
