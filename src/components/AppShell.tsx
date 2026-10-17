@@ -37,7 +37,7 @@ function NavItem({ to, label, icon: Icon, collapsed, active }: { to: string; lab
       to={to}
       title={label}
       className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-        active ? "bg-accent font-semibold text-accent-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        active ? "bg-tint font-semibold text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"
       } ${collapsed ? "justify-center" : ""}`}
     >
       <Icon className="h-4 w-4 shrink-0" />
@@ -64,7 +64,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <button
           onClick={() => toast("New research session started", { description: "Demo only — sessions will persist in a later phase." })}
           title="New Research"
-          className={`hidden items-center gap-2 rounded-lg bg-primary px-3 py-2.5 text-sm font-semibold text-primary-foreground shadow-soft transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:mb-5 md:flex ${collapsed ? "justify-center" : ""}`}
+          className={`hidden items-center gap-2 rounded-lg bg-brand px-3 py-2.5 text-sm font-semibold text-primary-foreground shadow-soft transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:mb-5 md:flex ${collapsed ? "justify-center" : ""}`}
         >
           <Plus className="h-4 w-4" />
           {!collapsed && "New Research"}
@@ -113,7 +113,7 @@ export function PageHeader({ title, description, demo }: { title: string; descri
 }
 
 export function DemoBadge() {
-  return <span className="rounded-full border border-sage/40 bg-sage-soft px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">Demo data</span>;
+  return <span className="rounded-full border border-sage/50 bg-sage-soft px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">Demo data</span>;
 }
 
 export function Tag({ children }: { children: ReactNode }) {
