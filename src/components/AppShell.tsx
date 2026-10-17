@@ -21,9 +21,8 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   return <div className="flex min-h-screen w-full flex-col lg:flex-row">
     <aside className={`flex shrink-0 flex-col bg-sidebar text-sidebar-foreground lg:sticky lg:top-0 lg:h-screen ${collapsed ? "lg:w-20" : "lg:w-[244px]"} transition-[width]`}>
-      <div className="flex items-center justify-between px-5 py-5 lg:px-6 lg:py-8">
+      <div className="flex items-center justify-between px-5 py-5 lg:px-4 lg:py-8">
         <Link to="/" className="flex items-center gap-3" aria-label="ScholarMesh AI home"><Logo />{!collapsed && <span className="text-base font-semibold">ScholarMesh<span className="ml-1.5 text-xs text-sidebar-muted">AI</span></span>}</Link>
-        <Button variant="ghost" size="icon" onClick={() => setCollapsed(c => !c)} title="Toggle sidebar" aria-label="Toggle sidebar" className="hidden text-sidebar-muted hover:bg-sidebar-active hover:text-sidebar-foreground lg:inline-flex"><PanelLeft /></Button>
       </div>
       <div className="hidden px-4 lg:block"><Button onClick={() => toast("New research session started", { description: "Demo only — sessions will persist in a later phase." })} className="bg-brand h-11 w-full shadow-none" title="New Research"><Plus />{!collapsed && "New Research"}</Button></div>
       {!collapsed && <p className="hidden px-6 pb-3 pt-8 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted lg:block">Workspace</p>}
@@ -31,6 +30,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         {nav.map(({ to, label, icon: Icon }) => <Button key={to} asChild variant="ghost" className={`h-11 shrink-0 justify-start gap-3 px-3 text-xs lg:text-sm hover:bg-sidebar-active hover:text-sidebar-foreground ${path === to ? "bg-sidebar-active text-sidebar-foreground" : "text-sidebar-muted"} ${collapsed ? "lg:justify-center" : ""}`}><Link to={to} title={label}><Icon />{!collapsed && <span>{label}</span>}{path === to && !collapsed && <span className="ml-auto hidden h-1.5 w-1.5 rounded-full bg-sage lg:block" />}</Link></Button>)}
       </nav>
       <div className="hidden border-t border-sidebar-active p-4 lg:block">
+        <Button variant="ghost" size="icon" onClick={() => setCollapsed(c => !c)} title="Toggle sidebar" aria-label="Toggle sidebar" className="mb-2 text-sidebar-muted hover:bg-sidebar-active hover:text-sidebar-foreground"><PanelLeft /></Button>
         <Button asChild variant="ghost" className={`h-10 w-full justify-start text-sidebar-muted hover:bg-sidebar-active hover:text-sidebar-foreground ${collapsed ? "justify-center" : ""}`}><Link to="/settings" title="Settings"><Settings />{!collapsed && "Settings"}</Link></Button>
         {!collapsed && <div className="mt-4 flex items-center gap-3 px-2 pb-2"><span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-sidebar-active text-xs font-semibold">R</span><div><p className="text-xs font-semibold">Research workspace</p><p className="mt-1 flex items-center gap-1.5 text-[10px] text-sidebar-muted"><FlaskConical className="h-3 w-3" />Interface preview</p></div></div>}
       </div>
